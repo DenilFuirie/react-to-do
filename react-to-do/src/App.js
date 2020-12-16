@@ -2,21 +2,13 @@
 import React, {useState} from 'react'
 import './App.css';
 import List from "./components/List/List";
-
+import AddList from "./components/AddList";
+import DB from '.././src/assets/db.json'
 
 function App() {
-    const [value, setValue] = React.useState('Hello world');
-
-
     return (
     <div className='todo'>
         <div className="todo__sidebar">
-            <button
-                onClick={() => {
-                setValue('Daniel');
-
-            }}>
-                Обновить</button>
             <List
                 items={[
                 {
@@ -31,7 +23,7 @@ function App() {
                             fill="black"/>
                     </svg>
                     ,
-                    name: value,
+                    name: 'Все задачи'
 
                 }
             ]}
@@ -56,38 +48,7 @@ function App() {
                 isRemovable
                 />
 
-            <List
-                items={[
-                    {
-                        className: 'list__add-button' ,
-                        icon : (<svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 16 16"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-
-                        >
-                            <path
-                                d="M8 1V15"
-                                stroke="black"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            />
-                            <path
-                                d="M1 8H15"
-                                stroke="black"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"/>
-                        </svg>)
-                        ,
-                        name: 'Добавить список'
-                    }
-                ]}
-
-            />
+            <AddList color={DB.colors}/>
 
         </div>
       <div className="todo__tasks"></div>
