@@ -14,7 +14,9 @@ function App() {
     );
 
     const onAddList = (obj) => {
-        console.log('Добавлен список',obj)
+        const newList = [...lists, obj];
+        setLists(newList);
+
     }
     return (
         <div className="todo">
