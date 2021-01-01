@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from "axios";
 
 
-import List from '../List';
-import Badge from '../Badge';
+import List from '../List/List'
+import Badge from '../Badge/Badge';
 
 import closeSvg from '../../assets/img/close.svg';
 
 import './AddList.scss';
+
 
 const AddList = ({ colors, onAdd }) => {
     const [visiblePopup, setVisiblePopup] = useState(false);
@@ -25,7 +26,7 @@ const AddList = ({ colors, onAdd }) => {
         setVisiblePopup(false);
         setInputValue('');
         selectColor(colors[0].id);
-    }
+    };
 
     const addList = () => {
         if (!inputValue) {
@@ -33,17 +34,20 @@ const AddList = ({ colors, onAdd }) => {
             return;
         }
         setIsLoading(true);
-        axios.post('http://localhost:3001/lists', {
-            name: inputValue,
-            colorId: selectColor
-        }).then(({ data }) => {
-            const color = colors.filter(c => c.id === seletedColor)[0].name;
-            const listObj = { ...data, color: { name: color} };
-            onAdd(listObj);
-            onClose();
-        }).finally(() => {
-            setIsLoading(false);
-        });
+        axios
+            .post('http://localhost:3001/lists', {
+                name: inputValue,
+                colorId: seletedColor
+            })
+            .then(({ data }) => {
+                const color = colors.filter(c => c.id === seletedColor)[0].name;
+                const listObj = { ...data, color: { name: color } };
+                onAdd(listObj);
+                onClose();
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
     };
 
     return (
@@ -95,7 +99,8 @@ const AddList = ({ colors, onAdd }) => {
                         onChange={e => setInputValue(e.target.value)}
                         className="field"
                         type="text"
-                        placeholder="Название списка" />
+                        placeholder="Название списка"
+                    />
 
                     <div className="add-list__popup-colors">
                         {colors.map(color => (
@@ -115,5 +120,6 @@ const AddList = ({ colors, onAdd }) => {
         </div>
     );
 };
+
 
 export default AddList;
